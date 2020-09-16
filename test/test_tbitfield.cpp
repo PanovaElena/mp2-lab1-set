@@ -2,6 +2,16 @@
 
 #include <gtest.h>
 
+TEST(TestCase, can_add_2_numbers)
+{
+	//arrange
+	int a = 3, b = 4;
+	//act
+	int c = a + b;
+	//assert
+	ASSERT_EQ(6, c);
+}
+
 TEST(TBitField, can_create_bitfield_with_positive_length)
 {
   ASSERT_NO_THROW(TBitField bf(3));
