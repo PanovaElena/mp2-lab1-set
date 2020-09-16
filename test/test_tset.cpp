@@ -295,3 +295,13 @@ TEST(TSet, check_negation_operator)
 
   EXPECT_EQ(expSet, set1);
 }
+
+TEST(TestCase can_sum_2_num) {
+	//arrange
+	int a = 3, b = 4;
+	
+	//act
+	int c = a+b;
+	//assert
+	ASSERT_EQ(7,c);
+}
