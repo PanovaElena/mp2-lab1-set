@@ -72,7 +72,7 @@ int TSet::operator!=(const TSet &s) const // сравнение
 {
     if (*this == s) return 0;
     else
-        return 0;
+        return 1;
 }
 
 TSet TSet::operator+(const TSet &s) // объединение
@@ -123,5 +123,13 @@ istream &operator>>(istream &istr, TSet &s) // ввод
 
 ostream& operator<<(ostream &ostr, const TSet &s) // вывод
 {
+    int i, n;
+    char ch = ' ';
+    ostr << '{';
+    n = s.GetMaxPower();
+    for (int i = 0; i < n; i++) {
+        if (s.IsMember(i)) { ostr << ch << ' ' << i; ch = ','; }
+    }
+    ostr << '}';
     return ostr;
 }
