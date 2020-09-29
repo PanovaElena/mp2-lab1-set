@@ -9,5 +9,5 @@ TEST(TestCase, can_add_2_numbers)
 {
 	int a = 3, b = 4;
 	int c = a + b;
-	ASSERT_EQ(6, c);
+	ASSERT_EQ(7, c);
 }
