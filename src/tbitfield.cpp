@@ -13,13 +13,14 @@ TBitField::TBitField(int len): BitLen(len)
         throw "incorrect length in input";
     }
     else {
-        MemLen = (len + 15) >> 4;
+        if (len > 8 * sizeof(TELEM))
+            MemLen = len / sizeof(TELEM)* 8;
+        else MemLen = 1;
         pMem = new TELEM[MemLen];
         if (pMem != nullptr)
             for (size_t i = 0; i < MemLen; i++) pMem[i] = 0;
     }
 }
-
 TBitField::TBitField(const TBitField &bf) // конструктор копирования
 {
     BitLen = bf.BitLen;
@@ -40,7 +41,7 @@ TBitField::~TBitField()
 int TBitField::GetMemIndex(const int n) const // индекс Мем для бита n
 {
     if ((n > -1) && (n < BitLen))
-        return n >> 4;
+        return n / sizeof(TELEM) / 8;
     else throw "incorrect index";
 }
 
@@ -76,7 +77,8 @@ void TBitField::ClrBit(const int n) // очистить бит
 int TBitField::GetBit(const int n) const // получить значение бита
 {
     if ((n > -1) && (n < BitLen))
-        return pMem[GetMemIndex(n)] & GetMemMask(n);
+        if (pMem[GetMemIndex(n)] & GetMemMask(n)) return 1;
+        else return 0;
     else throw "incorrect index";
 }
 
