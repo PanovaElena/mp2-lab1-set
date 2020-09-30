@@ -2,6 +2,53 @@
 
 #include <gtest.h>
 
+TEST(TBitField, can_do_AND_correctly) {
+	const int size1 = 70, size2 = 35;
+	TBitField bf1(size1), bf2(size2), bf3(size1);
+	for (int i = 0; i < size1; i += 2)
+		bf1.SetBit(i);
+	for (int i = 1; i < size2; i += 2)
+		bf2.SetBit(i);
+
+	TBitField res1 = bf1 & bf2;
+	TBitField res2 = bf2 & bf1;
+
+	EXPECT_EQ(bf3, res1);
+	EXPECT_EQ(bf3, res2);
+}
+
+TEST(TBitField, can_set_and_get_bit) {
+	const int size = 70;
+	TBitField bf(size);
+	const int bitNum = 33;
+
+	bf.SetBit(bitNum);
+
+	for (int i = 0; i < size; i++)
+		if (i == bitNum)
+			ASSERT_EQ(1, bf.GetBit(i));
+		else ASSERT_EQ(0, bf.GetBit(i));
+}
+
+TEST(TBitField, can_do_OR_correctly) {
+	const int size1 = 70, size2 = 35;
+	TBitField bf1(size1), bf2(size2), bf3(size1);
+	for (int i = 0; i < size1; i += 2) {
+		bf1.SetBit(i);
+		bf3.SetBit(i);
+	}
+	for (int i = 1; i < size2; i += 2) {
+		bf2.SetBit(i);
+		bf3.SetBit(i);
+	}
+
+	TBitField res1 = bf1 | bf2;
+	TBitField res2 = bf2 | bf1;
+
+	EXPECT_EQ(bf3, res1);
+	EXPECT_EQ(bf3, res2);
+}
+
 TEST(TBitField, can_create_bitfield_with_positive_length)
 {
   ASSERT_NO_THROW(TBitField bf(3));
