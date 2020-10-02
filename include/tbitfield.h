@@ -13,6 +13,8 @@
 using namespace std;
 
 typedef unsigned int TELEM;
+const TELEM UNIT = 1;
+const size_t BITS = 8;
 
 class TBitField
 {
