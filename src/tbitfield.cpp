@@ -6,16 +6,18 @@
 // Битовое поле
 
 #include "tbitfield.h"
-
+const TELEM UNIT = 1;
+const TELEM BYTE_LENGTH = 8;
 TBitField::TBitField(int len): BitLen(len)
 {
     if (len < 0) { 
         throw "incorrect length in input";
     }
     else {
-        if (len > 8 * sizeof(TELEM))
-            MemLen = len / sizeof(TELEM)* 8;
-        else MemLen = 1;
+        if (len % (BYTE_LENGTH * sizeof(TELEM)) == 0) {
+            MemLen = len / (sizeof(TELEM) * BYTE_LENGTH);
+        }
+        else MemLen = len / (sizeof(TELEM) * BYTE_LENGTH) + 1;
         pMem = new TELEM[MemLen];
         if (pMem != nullptr)
             for (size_t i = 0; i < MemLen; i++) pMem[i] = 0;
@@ -41,14 +43,14 @@ TBitField::~TBitField()
 int TBitField::GetMemIndex(const int n) const // индекс Мем для бита n
 {
     if ((n > -1) && (n < BitLen))
-        return n / sizeof(TELEM) / 8;
+        return n / sizeof(TELEM) / BYTE_LENGTH;
     else throw "incorrect index";
 }
 
 TELEM TBitField::GetMemMask(const int n) const // битовая маска для бита n
 {
     if ((n > -1) && (n < BitLen))
-        return 1 << (n & 15);
+        return UNIT << (n & (BYTE_LENGTH * sizeof(TELEM)-UNIT));
     else throw  "Error";
 }
 
@@ -86,6 +88,7 @@ int TBitField::GetBit(const int n) const // получить значение б
 
 TBitField& TBitField::operator=(const TBitField& bf) // присваивание
 {
+    if (this == &bf) return *this;
     TELEM* temp = new TELEM[bf.MemLen];
     for (int i = 0; i < bf.MemLen; i++) {
         temp[i] = bf.pMem[i];
@@ -112,8 +115,7 @@ int TBitField::operator==(const TBitField &bf) const // сравнение
 
 int TBitField::operator!=(const TBitField &bf) const // сравнение
 {
-    if (*this == bf) return 0;
-    else return 1;
+    return !(*this == bf);
 }
 
 TBitField TBitField::operator|(const TBitField &bf) // операция "или"
@@ -139,6 +141,9 @@ TBitField TBitField::operator&(const TBitField &bf) // операция "и"
         temp.pMem[i] = pMem[i];
     for (i = 0; i < bf.MemLen; i++)
         temp.pMem[i] &= bf.pMem[i];
+    if (bf.MemLen<MemLen) 
+        for (i = MemLen - bf.MemLen+1; i < MemLen; i++)
+            temp.pMem[i] = 0;
     return temp;
 }
 
