@@ -309,3 +309,16 @@ TEST(TBitField, bitfields_with_different_bits_are_not_equal)
 
   EXPECT_NE(bf1, bf2);
 }
+
+TEST(TBitField, can_set_and_get_bit) {
+	const int size = 70;
+	TBitField bf(size);
+	const int bitNum = 33;
+
+	bf.SetBit(bitNum);
+
+	for (int i = 0; i < size; i++)
+		if (i == bitNum)
+			ASSERT_EQ(1, bf.GetBit(i));
+		else ASSERT_EQ(0, bf.GetBit(i));
+}
