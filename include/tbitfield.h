@@ -12,7 +12,9 @@
 
 using namespace std;
 
-typedef unsigned int TELEM;
+typedef unsigned long long TELEM;
+TELEM const type_length = 8;
+TELEM const unit = 1;
 
 class TBitField
 {
