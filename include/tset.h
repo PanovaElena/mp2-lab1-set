@@ -16,7 +16,7 @@ private:
   int MaxPower;       // максимальная мощность множества
   TBitField BitField; // битовое поле для хранения характеристического вектора
 public:
-  TSet(int mp);
+  TSet(int mp);              // конструктор по умолчанию
   TSet(const TSet &s);       // конструктор копирования
   TSet(const TBitField &bf); // конструктор преобразования типа
   operator TBitField();      // преобразование типа к битовому полю
@@ -26,8 +26,8 @@ public:
   void DelElem(const int Elem);       // удалить элемент из множества
   int IsMember(const int Elem) const; // проверить наличие элемента в множестве
   // теоретико-множественные операции
-  int operator== (const TSet &s) const; // сравнение
-  int operator!= (const TSet &s) const; // сравнение
+  bool operator== (const TSet &s) const; // сравнение
+  bool operator!= (const TSet &s) const; // сравнение
   TSet& operator=(const TSet &s);  // присваивание
   TSet operator+ (const int Elem); // объединение с элементом
                                    // элемент должен быть из того же универса
