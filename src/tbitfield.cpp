@@ -16,12 +16,12 @@ TBitField::TBitField(int len) // конструктор по умолчанию
     if (len > 0)
     {
         BitLen = len;
-        if (len > byte * sizeof(TELEM))
+        if (BitLen > byte * sizeof(TELEM))
         {
             if (BitLen % (byte * sizeof(TELEM)) == 0)
-                MemLen = BitLen % (byte * sizeof(TELEM));
+                MemLen = BitLen / (byte * sizeof(TELEM));
             else
-                MemLen = BitLen % (byte * sizeof(TELEM)) + 1;
+                MemLen = BitLen / (byte * sizeof(TELEM)) + 1;
         }
         else
             MemLen = 1;
