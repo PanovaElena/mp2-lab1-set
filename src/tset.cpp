@@ -23,6 +23,7 @@ TSet::TSet(const TBitField &bf) : BitField(-1)
 
 TSet::operator TBitField()
 {
+    cout << "это новый комментарий";
     return TBitField(0);
 }
 
