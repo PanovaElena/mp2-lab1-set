@@ -74,20 +74,19 @@ int TSet::operator!=(const TSet &s) const // сравнение
 
 TSet TSet::operator+(const TSet &s) // объединение
 {
-    int newMaxPower = std::max(MaxPower,s.MaxPower);
+    int newMaxPower = std::max(MaxPower, s.MaxPower);
+    TSet res(newMaxPower);
 
-    TBitField tmp1(newMaxPower);
-    TBitField tmp2(newMaxPower);
-
-    for(int i = 0 ; i<MaxPower; i++){
-        if(BitField.GetBit(i)){tmp1.SetBit(i);}
+    for (int i = 0; i < MaxPower; i++) {
+        if (IsMember(i))
+            res.InsElem(i);
     }
 
-    for(int i = 0 ; i<MaxPower; i++){
-        if(BitField.GetBit(i)){tmp2.SetBit(i);}
+    for (int i = 0; i < s.MaxPower; i++) {
+        if (s.IsMember(i))
+            res.InsElem(i);
     }
 
-    TSet res(tmp1 | tmp2);
     return res;
 }
 
@@ -111,16 +110,16 @@ TSet TSet::operator-(const int Elem) // разность с элементом
 
 TSet TSet::operator*(const TSet &s) // пересечение
 {
-    int minPower = std::min(MaxPower,s.MaxPower);
+    int maxPower = std::max(MaxPower, s.MaxPower);
+    TSet res(maxPower);
 
-    TBitField result(minPower);
+    int minPower = std::min(MaxPower, s.MaxPower);
 
-    for(int i = 0;i<minPower; i++){
-        if(BitField.GetBit(i) && BitField.GetBit(i))
-            result.SetBit(i);
+    for (int i = 0; i < minPower; i++) {
+        if (IsMember(i) && s.IsMember(i))
+            res.InsElem(i);
     }
 
-    TSet res(result);
     return res;
 }
 
@@ -156,21 +155,12 @@ istream &operator>>(istream &istr, TSet &s) // ввод
 ostream &operator<<(ostream &ostr, const TSet &s) // вывод
 {
     ostr << "{ ";
-    int count;
-    bool flag = true;
-
-    for(int i = 0; i<s.MaxPower; i++){
-        if(s.BitField.GetBit(i)){
-            if(!flag) ostr<<", ";
-            ostr<<i;
-            flag = false;
-            count++;
+    for (int i = 0; i < s.MaxPower; i++) {
+        if (s.IsMember(i)) {
+            ostr << " " << i;
         }
     }
-
-    if (count == 0) ostr<<"isEmpty";
-
-    ostr<<" }";
+    ostr << " }";
 
     return ostr;
 }
