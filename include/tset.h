@@ -19,7 +19,7 @@ public:
   TSet(int mp);
   TSet(const TSet &s);       // конструктор копирования
   TSet(const TBitField &bf); // конструктор преобразования типа
-  operator TBitField();      // преобразование типа к битовому полю
+  operator TBitField() const;      // преобразование типа к битовому полю
   // доступ к битам
   int GetMaxPower(void) const;     // максимальная мощность множества
   void InsElem(const int Elem);       // включить элемент в множество
@@ -29,13 +29,13 @@ public:
   int operator== (const TSet &s) const; // сравнение
   int operator!= (const TSet &s) const; // сравнение
   TSet& operator=(const TSet &s);  // присваивание
-  TSet operator+ (const int Elem); // объединение с элементом
+  TSet operator+ (const int Elem) const; // объединение с элементом
                                    // элемент должен быть из того же универса
-  TSet operator- (const int Elem); // разность с элементом
+  TSet operator- (const int Elem) const; // разность с элементом
                                    // элемент должен быть из того же универса
-  TSet operator+ (const TSet &s);  // объединение
-  TSet operator* (const TSet &s);  // пересечение
-  TSet operator~ (void);           // дополнение
+  TSet operator+ (const TSet &s) const;  // объединение
+  TSet operator* (const TSet &s) const;  // пересечение
+  TSet operator~ (void) const;           // дополнение
 
   friend istream &operator>>(istream &istr, TSet &bf);
   friend ostream &operator<<(ostream &ostr, const TSet &bf);
