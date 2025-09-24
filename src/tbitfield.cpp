@@ -128,7 +128,7 @@ TBitField TBitField::operator&(const TBitField &bf) // операция "и"
     }
     int bl = std::max(BitLen, bf.BitLen);
     bitfieldik.BitLen = bl;
-    for (int i = 0; i < std::min(bf.MemLen, MemLen); i++) {
+    for (int i = 0; i < std::max(bf.MemLen, MemLen); i++) {
         bitfieldik.pMem[i] = bf.pMem[i] & pMem[i];
     }
     return bitfieldik;
