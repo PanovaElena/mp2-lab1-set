@@ -114,13 +114,11 @@ TBitField TBitField::operator|(const TBitField& bf) {
 }
 
 TBitField TBitField::operator&(const TBitField& bf) {
-    const int maxLen = std::max(BitLen, bf.BitLen);
-    TBitField tmp(maxLen);
-    for (int i = 0; i < MemLen; ++i) {
-        tmp.pMem[i] = pMem[i];
-    }
-    for (int i = 0; i < bf.MemLen; ++i) {
-        tmp.pMem[i] &= bf.pMem[i];
+    const int maxBitLen = std::max(BitLen, bf.BitLen);
+    TBitField tmp(maxBitLen);
+    const int minMemLen = std::max(MemLen, bf.MemLen);
+    for (int i = 0; i < minMemLen; ++i) {
+        tmp.pMem[i] = pMem[i] & bf.pMem[i];
     }
     return tmp;
 }
