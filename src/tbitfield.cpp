@@ -8,6 +8,8 @@
 #include "tbitfield.h"
 #include <cmath>
 
+const int BITS_IN_TELEM = sizeof(TELEM) * 8;
+
 // Конструктор
 TBitField::TBitField(int len)
 {
@@ -15,7 +17,7 @@ TBitField::TBitField(int len)
         throw "Error!";
 
     BitLen = len;
-    MemLen = (BitLen + sizeof(TELEM) * 8 - 1) / (sizeof(TELEM) * 8);
+    MemLen = (BitLen + BITS_IN_TELEM - 1) / BITS_IN_TELEM;
     pMem = new TELEM[MemLen];
 
     for (int i = 0; i < MemLen; i++)
@@ -45,7 +47,7 @@ int TBitField::GetMemIndex(const int n) const
     if (n < 0 || n >= BitLen)
         throw "Error!";
 
-    return n / (sizeof(TELEM) * 8);
+    return n / BITS_IN_TELEM;
 }
 
 // Битовая маска для бита n
@@ -54,7 +56,7 @@ TELEM TBitField::GetMemMask(const int n) const
     if (n < 0 || n >= BitLen)
         throw "Error!";
 
-    return 1 << (n % (sizeof(TELEM) * 8));
+    return TELEM(1) << (n % BITS_IN_TELEM);
 }
 
 // Получить длину (к-во битов)
@@ -92,10 +94,13 @@ TBitField& TBitField::operator=(const TBitField& bf)
 {
     if (this != &bf)
     {
-        delete[] pMem;
+        if (MemLen != bf.MemLen)
+        {
+            delete[] pMem;
+            MemLen = bf.MemLen;
+            pMem = new TELEM[MemLen];
+        }
         BitLen = bf.BitLen;
-        MemLen = bf.MemLen;
-        pMem = new TELEM[MemLen];
 
         for (int i = 0; i < MemLen; i++)
             pMem[i] = bf.pMem[i];
@@ -128,11 +133,18 @@ TBitField TBitField::operator|(const TBitField& bf)
     int maxLen = (BitLen > bf.BitLen) ? BitLen : bf.BitLen;
     TBitField result(maxLen);
 
-    for (int i = 0; i < MemLen; i++)
-        result.pMem[i] = pMem[i];
+    int commonMemLen = (MemLen < bf.MemLen) ? MemLen : bf.MemLen;
+    for (int i = 0; i < commonMemLen; i++)
+        result.pMem[i] = pMem[i] | bf.pMem[i];
 
-    for (int i = 0; i < bf.MemLen; i++)
-        result.pMem[i] |= bf.pMem[i];
+    if (MemLen > commonMemLen) {
+        for (int i = commonMemLen; i < MemLen; i++)
+            result.pMem[i] = pMem[i];
+    }
+    else if (bf.MemLen > commonMemLen) {
+        for (int i = commonMemLen; i < bf.MemLen; i++)
+            result.pMem[i] = bf.pMem[i];
+    }
 
     return result;
 }
@@ -144,9 +156,11 @@ TBitField TBitField::operator&(const TBitField& bf)
     TBitField result(maxLen);
 
     int minMemLen = (MemLen < bf.MemLen) ? MemLen : bf.MemLen;
-
     for (int i = 0; i < minMemLen; i++)
         result.pMem[i] = pMem[i] & bf.pMem[i];
+
+    for (int i = minMemLen; i < result.MemLen; i++)
+        result.pMem[i] = 0;
 
     return result;
 }
@@ -159,10 +173,10 @@ TBitField TBitField::operator~(void)
     for (int i = 0; i < MemLen; i++)
         result.pMem[i] = ~pMem[i];
 
-    int extraBits = BitLen % (sizeof(TELEM) * 8);
+    int extraBits = BitLen % BITS_IN_TELEM;
     if (extraBits != 0)
     {
-        TELEM mask = (1 << extraBits) - 1;
+        TELEM mask = (TELEM(1) << extraBits) - 1;
         result.pMem[MemLen - 1] &= mask;
     }
 
@@ -190,6 +204,6 @@ istream& operator>>(istream& istr, TBitField& bf)
 ostream& operator<<(ostream& ostr, const TBitField& bf)
 {
     for (int i = 0; i < bf.BitLen; i++)
-        ostr << bf.GetBit(i) << " ";
+        ostr << bf.GetBit(i);
     return ostr;
 }

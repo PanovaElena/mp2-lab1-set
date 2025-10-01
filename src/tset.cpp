@@ -98,7 +98,7 @@ TSet TSet::operator+(const int Elem) // объединение с элемент
 TSet TSet::operator-(const int Elem) // разность с элементом
 {
     if (Elem < 0 || Elem >= MaxPower)
-        throw "Error";
+        throw "Error!";
 
     TSet result(*this);
     result.DelElem(Elem);
@@ -117,10 +117,6 @@ TSet TSet::operator~(void) // дополнение
 {
     TSet result(MaxPower);
     result.BitField = ~BitField;
-
-    for (int i = MaxPower; i < result.BitField.GetLength(); i++)
-        result.BitField.ClrBit(i);
-
     return result;
 }
 
@@ -138,6 +134,8 @@ istream& operator>>(istream& istr, TSet& s) // ввод
             s.InsElem(elem);
         }
     }
+
+
     return istr;
 }
 
