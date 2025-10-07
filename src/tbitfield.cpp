@@ -116,8 +116,8 @@ TBitField TBitField::operator|(const TBitField& bf) {
 TBitField TBitField::operator&(const TBitField& bf) {
     const int maxBitLen = std::max(BitLen, bf.BitLen);
     TBitField tmp(maxBitLen);
-    const int minMemLen = std::max(MemLen, bf.MemLen);
-    for (int i = 0; i < minMemLen; ++i) {
+    const int MemLen_ = std::max(MemLen, bf.MemLen);
+    for (int i = 0; i < MemLen_; ++i) {
         tmp.pMem[i] = pMem[i] & bf.pMem[i];
     }
     return tmp;
@@ -161,5 +161,5 @@ int TBitField::GetMemIndex(const int n) {
 }
 
 TELEM TBitField::GetMemMask(const int n) {
-    return static_cast<TELEM>(1) << (n % (sizeof(int) * 8));
+    return static_cast<TELEM>(1) << (n % (sizeof(TELEM) * 8));
 }
