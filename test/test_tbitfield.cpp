@@ -309,3 +309,15 @@ TEST(TBitField, bitfields_with_different_bits_are_not_equal)
 
   EXPECT_NE(bf1, bf2);
 }
+TEST(TBitField, bitfield_lesenka)
+{
+  const int size =100;
+  TBitField bf(size);
+  for (size_t i = 0; i < size; i++)
+  {
+    bf.SetBit(i);
+    std::cout << bf << "\n";
+  }
+  
+}
+
