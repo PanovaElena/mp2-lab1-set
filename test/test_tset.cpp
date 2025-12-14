@@ -2,7 +2,7 @@
 
 #include <gtest.h>
 
-TEST(TSet, can_get_max_power_set)
+TEST(TSet, can_get_max_power_set)//1
 {
   const int size = 5;
   TSet set(size);
