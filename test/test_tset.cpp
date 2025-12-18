@@ -1,5 +1,4 @@
 #include "tset.h"
-
 #include <gtest.h>
 
 TEST(TSet, can_get_max_power_set)
