@@ -1,7 +1,4 @@
-cmake_minimum_required(VERSION 4.2)
-
-# disable googlemock
-option(BUILD_GMOCK "Builds the googlemock subproject" OFF)
+cmake_minimum_required(VERSION 3.31.5)
 
 # create string variable ${PROJECT_NAME}='set'
 set(PROJECT_NAME set)
