@@ -294,3 +294,43 @@ TEST(TSet, check_negation_operator)
 
   EXPECT_EQ(expSet, set1);
 }
+
+TEST(TSet, can_apply_xor_operator)
+{
+    const int size = 10;
+    TSet set1(size), set2(size);
+
+    set1.InsElem(1);
+    set1.InsElem(2);
+    set1.InsElem(3);
+
+    set2.InsElem(3);
+    set2.InsElem(4);
+    set2.InsElem(5);
+
+    TSet set3 = set1 ^ set2;
+
+    EXPECT_EQ(1, set3.IsMember(1));
+    EXPECT_EQ(1, set3.IsMember(2));
+    EXPECT_EQ(0, set3.IsMember(3)); 
+    EXPECT_EQ(1, set3.IsMember(4));
+    EXPECT_EQ(1, set3.IsMember(5));
+
+    EXPECT_EQ(0, set3.IsMember(0));
+    EXPECT_EQ(0, set3.IsMember(6));
+}
+
+TEST(TSet, can_use_chained_plus_operator)
+{
+    TSet set1(10), set2(10), set3(10);
+    set1.InsElem(1);
+    set2.InsElem(2);
+    set3.InsElem(3);
+
+    TSet result = set1 + set2 + set3;
+
+    EXPECT_EQ(1, result.IsMember(1));
+    EXPECT_EQ(1, result.IsMember(2));
+    EXPECT_EQ(1, result.IsMember(3));
+    EXPECT_EQ(0, result.IsMember(4));
+}

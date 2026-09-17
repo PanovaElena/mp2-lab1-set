@@ -308,3 +308,56 @@ TEST(TBitField, bitfields_with_different_bits_are_not_equal)
 
   EXPECT_NE(bf1, bf2);
 }
+
+
+TEST(TBitField, xor_operator_applied_to_bitfields)
+{
+    const int size = 10;
+    TBitField bf1(size), bf2(size);
+
+    bf1.SetBit(1);
+    bf1.SetBit(2);
+    bf1.SetBit(3);
+
+    bf2.SetBit(3);
+    bf2.SetBit(4);
+    bf2.SetBit(5);
+ 
+    TBitField bf3 = bf1 ^ bf2;
+
+    EXPECT_EQ(1, bf3.GetBit(1));
+    EXPECT_EQ(1, bf3.GetBit(2));
+    EXPECT_EQ(0, bf3.GetBit(3)); 
+    EXPECT_EQ(1, bf3.GetBit(4));
+    EXPECT_EQ(1, bf3.GetBit(5));
+
+    EXPECT_EQ(0, bf3.GetBit(0));
+    EXPECT_EQ(0, bf3.GetBit(6));
+}
+
+TEST(TBitField, double_clear_leaves_bit_in_zero_state)
+{
+    TBitField bf(10);
+    bf.SetBit(4);
+
+    bf.ClrBit(4); 
+    bf.ClrBit(4); 
+
+    EXPECT_EQ(0, bf.GetBit(4));
+}
+
+
+TEST(TBitField, can_use_chained_or_operator)
+{
+    TBitField bf1(10), bf2(10), bf3(10);
+    bf1.SetBit(1);
+    bf2.SetBit(2);
+    bf3.SetBit(3);
+
+    TBitField result = bf1 | bf2 | bf3;
+
+    EXPECT_EQ(1, result.GetBit(1));
+    EXPECT_EQ(1, result.GetBit(2));
+    EXPECT_EQ(1, result.GetBit(3));
+    EXPECT_EQ(0, result.GetBit(4));
+}
