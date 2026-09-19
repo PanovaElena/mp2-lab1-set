@@ -308,3 +308,37 @@ TEST(TBitField, bitfields_with_different_bits_are_not_equal)
 
   EXPECT_NE(bf1, bf2);
 }
+
+TEST(TBitField, double_bit_cleaning) //двойная очистка бита оставляет его в нулевом состоянии
+{
+    TBitField bf(5);
+
+    bf.SetBit(1);
+    bf.ClrBit(1);
+    bf.ClrBit(1);
+
+    EXPECT_EQ(0, bf.GetBit(1));
+}
+
+TEST(TBitField, combine_three_bitfields_in_one_expression) //битовая операция на три поля (например bf1 | bf2 | bf3) корректна
+{
+    TBitField bf1(6), bf2(6), bf3(6), expBf(6);
+
+    bf1.SetBit(0);
+    bf1.SetBit(1);
+
+    bf2.SetBit(2);
+    bf2.SetBit(3);
+
+    bf3.SetBit(4);
+    bf3.SetBit(5);
+
+    expBf.SetBit(0);
+    expBf.SetBit(1);
+    expBf.SetBit(2);
+    expBf.SetBit(3);
+    expBf.SetBit(4);
+    expBf.SetBit(5);
+
+    EXPECT_EQ(expBf, bf1 | bf2 | bf3);
+}

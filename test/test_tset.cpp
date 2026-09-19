@@ -294,3 +294,26 @@ TEST(TSet, check_negation_operator)
 
   EXPECT_EQ(expSet, set1);
 }
+
+TEST(TSet, combine_three_sets_in_one_expression) //проверка что для класса множества можно в одну строку выполнять несколько операций
+{
+    TSet set1(6), set2(6), set3(6), expSet(6);
+
+    set1.InsElem(0);
+    set1.InsElem(1);
+
+    set2.InsElem(2);
+    set2.InsElem(3);
+
+    set3.InsElem(4);
+    set3.InsElem(5);
+
+    expSet.InsElem(0);
+    expSet.InsElem(1);
+    expSet.InsElem(2);
+    expSet.InsElem(3);
+    expSet.InsElem(4);
+    expSet.InsElem(5);
+
+    EXPECT_EQ(expSet, set1 + set2 + set3);
+}
