@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.2)
+cmake_minimum_required(VERSION 4.0.2)
 
 # disable googlemock
 option(BUILD_GMOCK "Builds the googlemock subproject" OFF)
@@ -9,7 +9,7 @@ set(PROJECT_NAME set)
 project(${PROJECT_NAME})
 
 # set c++ language standard
-set(CMAKE_CXX_SNANDARD 17)
+set(CMAKE_CXX_STANDARD 17)
 
 # create string variables for subproject names
 set(MP2_LIBRARY "${PROJECT_NAME}")
