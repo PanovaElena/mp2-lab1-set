@@ -36,10 +36,11 @@ public:
   // битовые операции
   int operator==(const TBitField &bf) const; // сравнение                 (#О5)
   int operator!=(const TBitField &bf) const; // сравнение
-  TBitField& operator=(const TBitField &bf); // присваивание              (#П3)
-  TBitField  operator|(const TBitField &bf); // операция "или"            (#О6)
-  TBitField  operator&(const TBitField &bf); // операция "и"              (#Л2)
-  TBitField  operator~(void);                // отрицание                  (#С)
+  TBitField& operator=(const TBitField &bf); // присваивание              (#П3)     проставить const
+  TBitField  operator|(const TBitField &bf) const; // операция "или"            (#О6)
+  TBitField  operator&(const TBitField &bf) const; // операция "и"              (#Л2)
+  TBitField  operator~(void) const;                // отрицание                  (#С)
+  TBitField operator^(const TBitField &bf) const;
 
   friend std::istream &operator>>(std::istream &istr, TBitField &bf);       //      (#О7)
   friend std::ostream &operator<<(std::ostream &ostr, const TBitField &bf); //      (#П4)
