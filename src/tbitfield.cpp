@@ -152,7 +152,7 @@ TBitField TBitField::operator~(void) // отрицание
     }
     int lastBitLen = BitLen % (sizeof(TELEM) * 8);
     if (lastBitLen != 0) {
-        TELEM mask = (1U << lastBitLen) - 1;
+        TELEM mask = (TELEM(1) / static_cast<TELEM>(1) << lastBitLen) - 1;
         res.pMem[MemLen - 1] &= mask;
     }
     return res;
@@ -166,7 +166,7 @@ std::istream &operator>>(std::istream &istr, TBitField &bf) // ввод
     int i = 0;
     do {
         istr >> ch;
-    } while (ch != '0' && i != '1');
+    } while (ch != '0' && ch != '1');
     while ((ch == '0' || ch == '1') && i < bf.BitLen) {
         if (ch == '1') bf.SetBit(i);
         else bf.ClrBit(i);
