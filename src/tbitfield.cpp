@@ -75,9 +75,6 @@ int TBitField::GetLength(void) const // получить длину (к-во б�
 
 void TBitField::SetBit(const int n) // установить бит
 {
-    if (n < 0 || n >= BitLen){
-        throw std::out_of_range("Index slishkom bol'shoi or <0, try another one:)");
-    }
 
     TELEM mask = GetMemMask(n);
     int mem_index = GetMemIndex(n);
@@ -87,9 +84,6 @@ void TBitField::SetBit(const int n) // установить бит
 
 void TBitField::ClrBit(const int n) // очистить бит
 {
-    if (n < 0 || n >= BitLen){
-        throw std::out_of_range("Index slishkom bol'shoi or <0, try another one:)");
-    }
 
     TELEM invr_mask = ~GetMemMask(n);
     int mem_index = GetMemIndex(n);
@@ -99,10 +93,7 @@ void TBitField::ClrBit(const int n) // очистить бит
 
 int TBitField::GetBit(const int n) const // получить значение бита
 {
-    if (n < 0 || n >= BitLen){
-        throw std::out_of_range("Index slishkom bol'shoi or <0, try another one:)");
-    }
-
+   
     TELEM mask = GetMemMask(n);
     int mem_index = GetMemIndex(n);
 
@@ -249,15 +240,19 @@ std::istream &operator>>(std::istream &istr, TBitField &bf) // ввод
 {
     char value;
 
-    for (int i = 0; i < bf.GetLength(); i++) {
+    for (int i = bf.GetLength() - 1; i >= 0; i-- ){
         istr >> value;
 
         if (value == '1') {
             bf.SetBit(i);
         }
 
-        else {
+        else if (value == '0'){
             bf.ClrBit(i);
+        }
+
+        else{
+            throw std::runtime_error("Vvedite 1 or 0");
         }
     }
     return istr;
@@ -265,9 +260,18 @@ std::istream &operator>>(std::istream &istr, TBitField &bf) // ввод
 
 std::ostream &operator<<(std::ostream &ostr, const TBitField &bf) // вывод
 {   
+    if (bf.GetLength() == 0) { return ostr;}
     ostr << "|";
-    for (int i = 0; i < bf.GetLength(); i++ ){
-        ostr << bf.GetBit(i) << "|";
+    for (int i = bf.GetLength() - 1; i >= 0; i-- ){
+
+        ostr << bf.GetBit(i);
+
+        if( i % (sizeof(TELEM) * 8) == 0){
+            ostr << "|";
+        }
     }
     return ostr;
 }
+
+
+//     

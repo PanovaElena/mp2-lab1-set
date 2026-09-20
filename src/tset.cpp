@@ -7,6 +7,7 @@
 
 #include "tset.h"
 #include "tbitfield.h"
+#include <stdexcept>
 
 TSet::TSet(int mp) : MaxPower(mp), BitField(mp) {}
 
@@ -117,6 +118,15 @@ std::istream &operator>>(std::istream &istr, TSet &s) // ввод
 
             s.InsElem(i);
         }
+
+        else if (value == '0'){
+            s.DelElem(i);
+        }   
+
+        else{
+            throw std::runtime_error("Vvedite 0 or 1");
+        }
+
     }
     return istr;
 }
