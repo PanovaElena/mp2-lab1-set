@@ -46,10 +46,6 @@ TBitField::~TBitField()
 
 int TBitField::GetMemIndex(const int n) const // индекс Мем для бита n
 {
-    if (n<0 || n>= BitLen) {
-        throw "Bit index out of range";
-    }
-
     int bitsInElement = sizeof(TELEM) * 8;
 
     return n/bitsInElement;
@@ -57,9 +53,6 @@ int TBitField::GetMemIndex(const int n) const // индекс Мем для би
 
 TELEM TBitField::GetMemMask(const int n) const // битовая маска для бита n
 {
-    if (n<0 || n>= BitLen) {
-        throw "Bit index out of range";
-    }
 
     int bitsInElement = sizeof(TELEM) * 8;
     int bitPosition = n%bitsInElement;
@@ -96,7 +89,7 @@ void TBitField::ClrBit(const int n) // очистить бит
 int TBitField::GetBit(const int n) const // получить значение бита
 {
     if (n<0 || n>= BitLen) {
-        throw "Bit index out of range";
+        throw "Bit index out of range"; 
     }
 
     return (pMem[GetMemIndex(n)] & GetMemMask(n)) != 0;
@@ -177,7 +170,7 @@ TBitField TBitField::operator~(void) const// отрицание
     TBitField temp(BitLen);
     
     for (int i = 0; i < MemLen; i++) {
-        temp.pMem[i] = ~pMem[i]; //
+        temp.pMem[i] = ~pMem[i]; 
     }
 
     int bitsInElem = sizeof(TELEM) * 8;
@@ -213,14 +206,14 @@ TBitField TBitField::operator^(const TBitField &bf) const
 std::istream &operator>>(std::istream &istr, TBitField &bf) // ввод
 {
     char c;
-    for (int i = 0; i < bf.GetLength(); i++) {
+    for (int i = bf.GetLength() -1 ; i >= 0; i--) {
         istr >> c;
         if (c == '1') {
             bf.SetBit(i);
         } else if (c == '0') {
             bf.ClrBit(i);
         } else {
-            break; // Если встретили не 0 и не 1
+            break; 
         }
     }
     return istr;
@@ -228,7 +221,7 @@ std::istream &operator>>(std::istream &istr, TBitField &bf) // ввод
 
 std::ostream &operator<<(std::ostream &ostr, const TBitField &bf) // вывод
 {
-    for (int i = 0; i < bf.GetLength(); i++) {
+    for (int i = bf.GetLength(); i>=0;  i++) {
         ostr << bf.GetBit(i);
     }
     return ostr;
