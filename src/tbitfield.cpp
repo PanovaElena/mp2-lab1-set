@@ -7,7 +7,7 @@
 
 #include "tbitfield.h"
 
-TBitField::TBitField(int len) : BitLen(len), MemLen(len + BitsInElem - 1) / BitsInElem)
+TBitField::TBitField(int len) : BitLen(len), MemLen((len + BitsInElem - 1) / BitsInElem)
 {
     if (len < 0) throw std::length_error("The length of a bit field cannot be negative");
     if (len == 0) pMem = nullptr;
@@ -19,9 +19,9 @@ TBitField::TBitField(int len) : BitLen(len), MemLen(len + BitsInElem - 1) / Bits
     }
 }
 
-TBitField::TBitField(const TBitField &bf) BitLen(bf.BitLen), MemLen(bf.MemLen)// конструктор копирования
+TBitField::TBitField(const TBitField &bf) : BitLen(bf.BitLen), MemLen(bf.MemLen)// конструктор копирования
 {
-    if (len == 0) pMem = nullptr;
+    if (MemLen == 0) pMem = nullptr;
     else {
         pMem = new TELEM[MemLen];
         for (int i = 0; i < MemLen; i++) {
@@ -32,13 +32,13 @@ TBitField::TBitField(const TBitField &bf) BitLen(bf.BitLen), MemLen(bf.MemLen)//
 
 TBitField::~TBitField()
 {
-    delete[] pMEM;
+    delete[] pMem;
 }
 
 int TBitField::GetMemIndex(const int n) const // индекс Мем для бита n
 {
     if (n < 0 || n >= BitLen) throw std::out_of_range("Bit index out of range");
-    return n / BitsInElem
+    return n / BitsInElem;
 }
 
 TELEM TBitField::GetMemMask(const int n) const // битовая маска для бита n
@@ -57,19 +57,19 @@ int TBitField::GetLength(void) const // получить длину (к-во б�
 void TBitField::SetBit(const int n) // установить бит
 {
     if (n < 0 || n >= BitLen) throw std::out_of_range("Bit index out of range");
-    GetMemIndex(n) |= GetMemMask(n);
+    pMem[GetMemIndex(n)[] |= GetMemMask(n);
 }
 
 void TBitField::ClrBit(const int n) // очистить бит
 {
     if (n < 0 || n >= BitLen) throw std::out_of_range("Bit index out of range");
-    GetMemIndex(n) &= ~GetMemMask(n);
+    pMem[GetMemIndex(n)] &= ~GetMemMask(n);
 }
 
 int TBitField::GetBit(const int n) const // получить значение бита
 {
     if (n < 0 || n >= BitLen) throw std::out_of_range("Bit index out of range");
-    return (GetMemIndex(n) & GetMemMask(n)) ? 1 : 0;
+    return (pMem[GetMemIndex(n)] & GetMemMask(n)) ? 1 : 0;
 }
 
 // битовые операции
@@ -172,10 +172,28 @@ TBitField TBitField::operator~(void) // отрицание
 
 std::istream &operator>>(std::istream &istr, TBitField &bf) // ввод
 {
+    std::string str;
+    istr >> str;
+
+    int len = str.size();
+    TBitField tmp(len);
+    for (int i = 0; i < len; i++) {
+        if (str[i] == '1') {
+            tmp.SetBit(i);
+        }
+        else if (str[i] != '0') {
+            throw std::invalid_argument("An attempt was made to write a value other than 0 or 1 to a bit field");
+        }
+    }
+    bf = tmp;
+
     return istr;
 }
 
 std::ostream &operator<<(std::ostream &ostr, const TBitField &bf) // вывод
 {
+    for (int i = 0; i < bf.BitLen; i++) {
+        ostr << bf.GetBit(i);
+    }
     return ostr;
 }
