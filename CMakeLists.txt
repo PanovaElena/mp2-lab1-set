@@ -7,6 +7,7 @@ option(BUILD_GMOCK "Builds the googlemock subproject" OFF)
 set(PROJECT_NAME set)
 # the solution with the 'set' name
 project(${PROJECT_NAME})
+enable_testing()
 
 # set c++ language standard
 set(CMAKE_CXX_STANDARD 17)

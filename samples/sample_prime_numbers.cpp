@@ -22,10 +22,10 @@ int main()
   int n, m, k, count;
 
   setlocale(LC_ALL, "Russian");
-  cout << "Тестирование программ поддержки битового поля" << endl;
-  cout << "             Решето Эратосфена" << endl;
-  cout << "Введите верхнюю границу целых значений - ";
-  cin  >> n;
+  std::cout << "Тестирование программ поддержки битового поля" << std::endl;
+  std::cout << "             Решето Эратосфена" << std::endl;
+  std::cout << "Введите верхнюю границу целых значений - ";
+  std::cin  >> n;
   TBitField s(n + 1);
   // заполнение множества
   for (m = 2; m <= n; m++)
@@ -38,8 +38,8 @@ int main()
         if (s.GetBit(k))
           s.ClrBit(k);
   // оставшиеся в s элементы - простые числа
-  cout << endl << "Печать множества некратных чисел" << endl << s << endl;
-  cout << endl << "Печать простых чисел" << endl;
+  std::cout << std :: endl << "Печать множества некратных чисел" << std :: endl << s << std ::endl;
+  std :: cout << std :: endl << "Печать простых чисел" << std ::endl;
   count = 0;
   k = 1;
   for (m = 2; m <= n; m++)
@@ -48,10 +48,10 @@ int main()
       count++;
       cout << std::setw(3) << m << " ";
       if (k++ % 10 == 0)
-        cout << endl;
+        std :: cout << std ::endl;
     }
-  cout << endl;
-  cout << "В первых " << n << " числах " << count << " простых" << endl;
+  std :: cout << std ::endl;
+  std :: cout << "В первых " << n << " числах " << count << " простых" << std :: endl;
 }
 #else
 
