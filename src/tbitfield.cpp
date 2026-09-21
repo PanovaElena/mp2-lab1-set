@@ -6,6 +6,7 @@
 // Битовое поле
 
 #include "tbitfield.h"
+#include <stdexcept>
 
 TBitField::TBitField(int len) : BitLen(len), MemLen((len + BitsInElem - 1) / BitsInElem)
 {
