@@ -7,6 +7,8 @@
 
 #include "tset.h"
 #include <stdexcept>
+#include <string>
+#include <sstream>
 
 TSet::TSet(int mp) : MaxPower(mp), BitField(mp)
 {
@@ -106,10 +108,34 @@ TSet TSet::operator~(void) // дополнение
 
 std::istream &operator>>(std::istream &istr, TSet &s) // ввод
 {
+    for (int i = 0; i < s.MaxPower; i++) {
+        s.DelElem(i);
+    }
+
+    std::string str;
+    if (std::getline(istr, str)) {
+        std::stringstream ss(str);
+        int elem;
+        while (ss >> elem) {
+            s.InsElem(elem);
+        }
+    }
+
     return istr;
 }
 
 std::ostream& operator<<(std::ostream &ostr, const TSet &s) // вывод
 {
+    ostr << '{';
+    int i = 0;
+    while (!s.IsMember(i)) i++;
+    ostr << i;
+
+    while (i < s.MaxPower) {
+        if (s.IsMember(i)) ostr << ", " << i;
+        i++;
+    }
+    ostr << '}';
+
     return ostr;
 }
