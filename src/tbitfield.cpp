@@ -11,7 +11,7 @@
 TBitField::TBitField(int len)
 {
     if (len <= 0) {
-        throw std::out_of_range("Can't create bitfield with negative length");
+        throw std::runtime_error("Can't create bitfield with negative length");
     }
     BitLen = len;
     MemLen = (BitLen + (sizeof(TELEM) * 8) - 1) / (sizeof(TELEM) * 8);
@@ -87,15 +87,14 @@ int TBitField::GetBit(const int n) const // получить значение б
 TBitField& TBitField::operator=(const TBitField &bf) // присваивание
 {
     if (this == &bf) return *this;
-    if (MemLen != bf.MemLen) {
-        delete[] pMem;
-        MemLen = bf.MemLen;
-        pMem = new TELEM [ MemLen ];
+    TELEM *temp = new TELEM [bf.MemLen];
+    for (int i = 0; i < bf.MemLen; i++) {
+        temp[i] = bf.pMem[i];
     }
+    delete[] pMem;
+    pMem = temp;
+    MemLen = bf.MemLen;
     BitLen = bf.BitLen;
-    for (int i = 0; i< MemLen; i++) {
-        pMem[i] = bf.pMem[i];
-    }
     return *this;
 }
 
@@ -119,16 +118,13 @@ TBitField TBitField::operator|(const TBitField &bf) // операция "или"
     TBitField res(maxLen);
     int minMemLen = (MemLen < bf.MemLen) ? MemLen : bf.MemLen;
     int maxMemLen = (MemLen > bf.MemLen) ? MemLen : bf.MemLen;
-
     for (int i = 0; i < minMemLen; i++) {
         res.pMem[i] = pMem[i] | bf.pMem[i];
     }
-
     TELEM* pMemSource = (MemLen < bf.MemLen) ? bf.pMem : pMem;
     for (int i = minMemLen; i < maxMemLen; i++) {
         res.pMem[i] = pMemSource [i];
     }
-
     return res;
 }
 
@@ -152,7 +148,7 @@ TBitField TBitField::operator~(void) // отрицание
     }
     int lastBitLen = BitLen % (sizeof(TELEM) * 8);
     if (lastBitLen != 0) {
-        TELEM mask = (TELEM(1) / static_cast<TELEM>(1) << lastBitLen) - 1;
+        TELEM mask = (TELEM(1) << lastBitLen) - 1;
         res.pMem[MemLen - 1] &= mask;
     }
     return res;
