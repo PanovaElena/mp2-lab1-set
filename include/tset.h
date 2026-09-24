@@ -26,16 +26,17 @@ public:
   void DelElem(const int Elem);       // удалить элемент из множества
   int IsMember(const int Elem) const; // проверить наличие элемента в множестве
   // теоретико-множественные операции
-  int operator== (const TSet &s) const; // сравнение
-  int operator!= (const TSet &s) const; // сравнение
-  TSet& operator=(const TSet &s);  // присваивание
-  TSet operator+ (const int Elem); // объединение с элементом
-                                   // элемент должен быть из того же универса
-  TSet operator- (const int Elem); // разность с элементом
-                                   // элемент должен быть из того же универса
-  TSet operator+ (const TSet &s);  // объединение
-  TSet operator* (const TSet &s);  // пересечение
-  TSet operator~ (void);           // дополнение
+  int operator== (const TSet &s) const;  // сравнение
+  int operator!= (const TSet &s) const;  // сравнение
+  TSet& operator=(const TSet &s);        // присваивание
+  TSet operator+ (const int Elem) const; // объединение с элементом
+                                         // элемент должен быть из того же универса
+  TSet operator- (const int Elem) const; // разность с элементом
+                                         // элемент должен быть из того же универса
+  TSet operator+ (const TSet &s) const;  // объединение
+  TSet operator* (const TSet &s) const;  // пересечение
+  TSet operator~ (void) const;           // дополнение
+  TSet operator^ (const TSet& s) const;  // симметрическая разность
 
   friend std::istream &operator>>(std::istream &istr, TSet &bf);
   friend std::ostream &operator<<(std::ostream &ostr, const TSet &bf);

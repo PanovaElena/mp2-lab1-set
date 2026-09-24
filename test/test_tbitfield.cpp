@@ -295,6 +295,44 @@ TEST(TBitField, can_invert_many_random_bits_bitfield)
   EXPECT_EQ(expNegBf, negBf);
 }
 
+TEST(TBitField, xor_operator_applied_to_bitfields_of_equal_size)
+{
+    const int size = 4;
+    TBitField bf1(size), bf2(size), expBf(size);
+    // bf1 = 0011
+    bf1.SetBit(2);
+    bf1.SetBit(3);
+    // bf2 = 0101
+    bf2.SetBit(1);
+    bf2.SetBit(3);
+
+    // expBf = 0110
+    expBf.SetBit(1);
+    expBf.SetBit(2);
+
+    EXPECT_EQ(expBf, bf1 ^ bf2);
+}
+
+TEST(TBitField, xor_operator_applied_to_bitfields_of_non_equal_size)
+{
+    const int size1 = 4, size2 = 5;
+    TBitField bf1(size1), bf2(size2), expBf(size2);
+    // bf1 = 0011
+    bf1.SetBit(2);
+    bf1.SetBit(3);
+    // bf2 = 01011
+    bf2.SetBit(1);
+    bf2.SetBit(3);
+    bf2.SetBit(4);
+
+    // expBf = 01101
+    expBf.SetBit(1);
+    expBf.SetBit(2);
+    expBf.SetBit(4);
+
+    EXPECT_EQ(expBf, bf1 ^ bf2);
+}
+
 TEST(TBitField, bitfields_with_different_bits_are_not_equal)
 {
   const int size = 4;
@@ -307,4 +345,33 @@ TEST(TBitField, bitfields_with_different_bits_are_not_equal)
   bf2.SetBit(2);
 
   EXPECT_NE(bf1, bf2);
+}
+
+TEST(TBitField, check_output_operator)
+{
+    const int size = 4;
+    TBitField bf(size);
+    // bf = 0011
+    bf.SetBit(2);
+    bf.SetBit(3);
+
+    std::stringstream sstr;
+    sstr << bf;
+    
+    EXPECT_EQ("0011", sstr.str());
+}
+
+TEST(TBitField, check_input_operator)
+{
+    const int size = 4;
+    TBitField bf(size), expBf(size);
+    // expBf = 0011
+    expBf.SetBit(2);
+    expBf.SetBit(3);
+
+    std::stringstream sstr;
+    sstr << "0011";
+    sstr >> bf;
+
+    EXPECT_EQ(expBf, bf);
 }

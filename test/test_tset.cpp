@@ -294,3 +294,139 @@ TEST(TSet, check_negation_operator)
 
   EXPECT_EQ(expSet, set1);
 }
+
+TEST(TSet, check_size_of_symmetric_difference_of_two_sets_of_equal_size)
+{
+	const int size = 5;
+	TSet set1(size), set2(size), set3(size);
+	// set1 = {1, 2, 4}
+	set1.InsElem(1);
+	set1.InsElem(2);
+	set1.InsElem(4);
+	// set2 = {0, 1, 2}
+	set2.InsElem(0);
+	set2.InsElem(1);
+	set2.InsElem(2);
+
+	set3 = set1 ^ set2;
+
+	EXPECT_EQ(size, set3.GetMaxPower());
+}
+
+TEST(TSet, can_symmetric_difference_two_sets_of_equal_size)
+{
+	const int size = 5;
+	TSet set1(size), set2(size), set3(size), expSet(size);
+	// set1 = {1, 2, 4}
+	set1.InsElem(1);
+	set1.InsElem(2);
+	set1.InsElem(4);
+	// set2 = {0, 1, 2}
+	set2.InsElem(0);
+	set2.InsElem(1);
+	set2.InsElem(2);
+
+	set3 = set1 ^ set2;
+
+	// expSet = {0, 4}
+	expSet.InsElem(0);
+	expSet.InsElem(4);
+
+	EXPECT_EQ(expSet, set3);
+}
+
+TEST(TSet, check_size_changes_of_symmetric_difference_of_two_sets_of_non_equal_size)
+{
+	const int size1 = 5, size2 = 7;
+	TSet set1(size1), set2(size2), set3(size1);
+	// set1 = {1, 2, 4}
+	set1.InsElem(1);
+	set1.InsElem(2);
+	set1.InsElem(4);
+	// set2 = {0, 1, 2, 6}
+	set2.InsElem(0);
+	set2.InsElem(1);
+	set2.InsElem(2);
+	set2.InsElem(6);
+
+	set3 = set1 ^ set2;
+
+	EXPECT_EQ(size2, set3.GetMaxPower());
+}
+
+TEST(TSet, can_symmetric_difference_two_sets_of_non_equal_size)
+{
+	const int size1 = 5, size2 = 7;
+	TSet set1(size1), set2(size2), set3(size1), expSet(size2);
+	// set1 = {1, 2, 4}
+	set1.InsElem(1);
+	set1.InsElem(2);
+	set1.InsElem(4);
+	// set2 = {0, 1, 2, 6}
+	set2.InsElem(0);
+	set2.InsElem(1);
+	set2.InsElem(2);
+	set2.InsElem(6);
+
+	set3 = set1 ^ set2;
+
+	// expSet = {0, 4, 6}
+	expSet.InsElem(0);
+	expSet.InsElem(4);
+	expSet.InsElem(6);
+
+	EXPECT_EQ(expSet, set3);
+}
+
+TEST(TSet, symmetric_difference_with_itself_gives_empty_set)
+{
+	const int size = 5;
+	TSet set(size), result(size), emptySet(size);
+	set.InsElem(1);
+	set.InsElem(3);
+
+	result = set ^ set;
+
+	EXPECT_EQ(emptySet, result);
+}
+
+TEST(TSet, symmetric_difference_with_empty_set_gives_original_set)
+{
+	const int size = 5;
+	TSet set(size), emptySet(size), result(size);
+	set.InsElem(1);
+	set.InsElem(3);
+
+	result = set ^ emptySet;
+
+	EXPECT_EQ(set, result);
+}
+
+TEST(TSet, check_output_operator)
+{
+	const int size = 4;
+	TSet set(size);
+	// set = {1, 3}
+	set.InsElem(1);
+	set.InsElem(3);
+
+	std::stringstream sstr;
+	sstr << set;
+
+	EXPECT_EQ("{1, 3}", sstr.str());
+}
+
+TEST(TSet, check_input_operator)
+{
+	const int size = 4;
+	TSet set(size), expSet(size);
+	// expSet = {1, 3}
+	expSet.InsElem(1);
+	expSet.InsElem(3);
+
+	std::stringstream sstr;
+	sstr << "1 3";
+	sstr >> set;
+
+	EXPECT_EQ(expSet, set);
+}

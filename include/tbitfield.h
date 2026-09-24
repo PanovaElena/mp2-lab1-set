@@ -9,8 +9,9 @@
 #define __BITFIELD_H__
 
 #include <iostream>
+#include <cstdint>
 
-typedef unsigned int TELEM;
+typedef uint32_t TELEM;
 
 class TBitField
 {
@@ -34,12 +35,13 @@ public:
   int  GetBit(const int n) const; // получить значение бита               (#Л1)
 
   // битовые операции
-  int operator==(const TBitField &bf) const; // сравнение                 (#О5)
-  int operator!=(const TBitField &bf) const; // сравнение
-  TBitField& operator=(const TBitField &bf); // присваивание              (#П3)
-  TBitField  operator|(const TBitField &bf); // операция "или"            (#О6)
-  TBitField  operator&(const TBitField &bf); // операция "и"              (#Л2)
-  TBitField  operator~(void);                // отрицание                  (#С)
+  int operator==(const TBitField &bf) const;       // сравнение                 (#О5)
+  int operator!=(const TBitField &bf) const;       // сравнение
+  TBitField& operator=(const TBitField &bf);       // присваивание              (#П3)
+  TBitField  operator|(const TBitField &bf) const; // операция "или"            (#О6)
+  TBitField  operator&(const TBitField &bf) const; // операция "и"              (#Л2)
+  TBitField  operator~(void) const;                // отрицание                  (#С)
+  TBitField  operator^(const TBitField& bf) const; // исключающее "или"
 
   friend std::istream &operator>>(std::istream &istr, TBitField &bf);       //      (#О7)
   friend std::ostream &operator<<(std::ostream &ostr, const TBitField &bf); //      (#П4)
