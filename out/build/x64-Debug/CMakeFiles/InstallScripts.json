@@ -1,0 +1,12 @@
+{
+	"InstallScripts" : 
+	[
+		"D:/mp2-lab1-set/out/build/x64-Debug/cmake_install.cmake",
+		"D:/mp2-lab1-set/out/build/x64-Debug/gtest/googletest-1.18.0/cmake_install.cmake",
+		"D:/mp2-lab1-set/out/build/x64-Debug/gtest/googletest-1.18.0/googletest/cmake_install.cmake",
+		"D:/mp2-lab1-set/out/build/x64-Debug/src/cmake_install.cmake",
+		"D:/mp2-lab1-set/out/build/x64-Debug/samples/cmake_install.cmake",
+		"D:/mp2-lab1-set/out/build/x64-Debug/test/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
