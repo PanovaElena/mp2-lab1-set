@@ -1,0 +1,15 @@
+D:/repo/mp2-lab1-set/build/CMakeFiles/INSTALL.dir
+D:/repo/mp2-lab1-set/build/CMakeFiles/ALL_BUILD.dir
+D:/repo/mp2-lab1-set/build/CMakeFiles/ZERO_CHECK.dir
+D:/repo/mp2-lab1-set/build/gtest/googletest-1.18.0/CMakeFiles/INSTALL.dir
+D:/repo/mp2-lab1-set/build/gtest/googletest-1.18.0/CMakeFiles/ALL_BUILD.dir
+D:/repo/mp2-lab1-set/build/gtest/googletest-1.18.0/googletest/CMakeFiles/gtest.dir
+D:/repo/mp2-lab1-set/build/gtest/googletest-1.18.0/googletest/CMakeFiles/gtest_main.dir
+D:/repo/mp2-lab1-set/build/gtest/googletest-1.18.0/googletest/CMakeFiles/INSTALL.dir
+D:/repo/mp2-lab1-set/build/gtest/googletest-1.18.0/googletest/CMakeFiles/ALL_BUILD.dir
+D:/repo/mp2-lab1-set/build/src/CMakeFiles/set.dir
+D:/repo/mp2-lab1-set/build/src/CMakeFiles/INSTALL.dir
+D:/repo/mp2-lab1-set/build/samples/CMakeFiles/sample_prime_numbers.dir
+D:/repo/mp2-lab1-set/build/samples/CMakeFiles/INSTALL.dir
+D:/repo/mp2-lab1-set/build/test/CMakeFiles/test_set.dir
+D:/repo/mp2-lab1-set/build/test/CMakeFiles/INSTALL.dir

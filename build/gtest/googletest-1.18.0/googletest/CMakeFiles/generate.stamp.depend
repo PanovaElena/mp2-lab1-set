@@ -1,0 +1,17 @@
+# CMake generation dependency list for this directory.
+C:/Program Files/CMake/share/cmake-4.4/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in
+C:/Program Files/CMake/share/cmake-4.4/Modules/CMakePackageConfigHelpers.cmake
+C:/Program Files/CMake/share/cmake-4.4/Modules/CheckCSourceCompiles.cmake
+C:/Program Files/CMake/share/cmake-4.4/Modules/CheckIncludeFile.cmake
+C:/Program Files/CMake/share/cmake-4.4/Modules/CheckLibraryExists.cmake
+C:/Program Files/CMake/share/cmake-4.4/Modules/FindPackageHandleStandardArgs.cmake
+C:/Program Files/CMake/share/cmake-4.4/Modules/FindPackageMessage.cmake
+C:/Program Files/CMake/share/cmake-4.4/Modules/FindThreads.cmake
+C:/Program Files/CMake/share/cmake-4.4/Modules/Internal/CheckCommon.cmake
+C:/Program Files/CMake/share/cmake-4.4/Modules/Internal/CheckSourceCompiles.cmake
+C:/Program Files/CMake/share/cmake-4.4/Modules/WriteBasicConfigVersionFile.cmake
+D:/repo/mp2-lab1-set/gtest/googletest-1.18.0/googletest/CMakeLists.txt
+D:/repo/mp2-lab1-set/gtest/googletest-1.18.0/googletest/cmake/Config.cmake.in
+D:/repo/mp2-lab1-set/gtest/googletest-1.18.0/googletest/cmake/gtest.pc.in
+D:/repo/mp2-lab1-set/gtest/googletest-1.18.0/googletest/cmake/gtest_main.pc.in
+D:/repo/mp2-lab1-set/gtest/googletest-1.18.0/googletest/cmake/internal_utils.cmake
