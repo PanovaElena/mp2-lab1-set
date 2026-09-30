@@ -210,8 +210,8 @@ std::istream &operator>>(std::istream &istr, TBitField &bf) // ввод
 
 std::ostream &operator<<(std::ostream &ostr, const TBitField &bf) // вывод
 {
-    //for (int i = 0; i < bf.BitLen; i++) {
-    //    ostr << bf.GetBit(i);
-    //}
+    for (int i = 0; i < bf.BitLen; i++) {
+        ostr << bf.GetBit(i);
+    }
     return ostr;
 }
