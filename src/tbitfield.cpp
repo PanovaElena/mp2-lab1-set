@@ -62,7 +62,7 @@ void TBitField::SetBit(const int n) // установить бит
     if (n < 0 || n > BitLen) {
         throw "Bit position is out of range";
     }
-    pMem[GetMemIndex(n)] |= GetMemMask(n);
+    pMem[GetMemIndex(n)] |= GetMemMask(n % (sizeof(TELEM) << 3));
 }
 
 void TBitField::ClrBit(const int n) // очистить бит
@@ -70,7 +70,7 @@ void TBitField::ClrBit(const int n) // очистить бит
     if (n < 0 || n > BitLen) {
         throw "Bit position is out of range";
     }
-    pMem[GetMemIndex(n)] &= ~GetMemMask(n);
+    pMem[GetMemIndex(n)] &= ~GetMemMask(n % (sizeof(TELEM) << 3));
 }
 
 int TBitField::GetBit(const int n) const // получить значение бита
@@ -113,7 +113,29 @@ int TBitField::operator!=(const TBitField &bf) const // сравнение
 
 TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 {
-    if (BitLen != bf.BitLen) return TBitField(0);
+    if (BitLen != bf.BitLen) {
+        TBitField m(std::max(BitLen, bf.BitLen));
+        if (BitLen < bf.BitLen) {
+            for (int i = 0; i < BitLen; i++) {
+                m.pMem[i] = pMem[i];
+            }
+            TBitField res = bf;
+            for (int i = 0; i < MemLen; i++) {
+                res.pMem[i] = m.pMem[i] | bf.pMem[i];
+            }
+            return res;
+        }
+        else {
+            for (int i = 0; i < bf.BitLen; i++) {
+                m.pMem[i] = bf.pMem[i];
+            }
+            TBitField res = *this;
+            for (int i = 0; i < MemLen; i++) {
+                res.pMem[i] = pMem[i] | m.pMem[i];
+            }
+            return res;
+        }
+    }
     TBitField res = *this;
     for (int i = 0; i < MemLen; i++) {
         res.pMem[i] = pMem[i] | bf.pMem[i];
@@ -123,7 +145,29 @@ TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 
 TBitField TBitField::operator&(const TBitField &bf) // операция "и"
 {
-    if (BitLen != bf.BitLen) return TBitField(0);
+    if (BitLen != bf.BitLen) {
+        TBitField m(std::max(BitLen, bf.BitLen));
+        if (BitLen < bf.BitLen) {
+            for (int i = 0; i < BitLen; i++) {
+                m.pMem[i] = pMem[i];
+            }
+            TBitField res = bf;
+            for (int i = 0; i < MemLen; i++) {
+                res.pMem[i] = m.pMem[i] & bf.pMem[i];
+            }
+            return res;
+        }
+        else {
+            for (int i = 0; i < bf.BitLen; i++) {
+                m.pMem[i] = bf.pMem[i];
+            }
+            TBitField res = *this;
+            for (int i = 0; i < MemLen; i++) {
+                res.pMem[i] = pMem[i] & m.pMem[i];
+            }
+            return res;
+        }
+    }
     TBitField res = *this;
     for (int i = 0; i < MemLen; i++) {
         res.pMem[i] = pMem[i] & bf.pMem[i];
