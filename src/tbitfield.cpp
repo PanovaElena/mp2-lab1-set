@@ -154,8 +154,9 @@ TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 
 TBitField TBitField::operator&(const TBitField &bf) // операция "и"
 {
-    TBitField tmp(std::min(BitLen, bf.BitLen));
-    for (int i = 0; i < tmp.MemLen; i++) {
+    TBitField tmp(std::max(BitLen, bf.BitLen));
+    int minMemLen = std::min(MemLen, bf.MemLen);
+    for (int i = 0; i < minMemLen; i++) {
         tmp.pMem[i] = pMem[i] & bf.pMem[i];
     }
     return tmp;

@@ -82,6 +82,10 @@ TSet TSet::operator+(const TSet &s) // объединение
 
 TSet TSet::operator+(const int Elem) // объединение с элементом
 {
+    if ((Elem < 0) || (Elem >= MaxPower)) {
+        throw "Element out of range";
+    }
+
     TSet res(*this);
     res.InsElem(Elem);
     return res;
