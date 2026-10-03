@@ -43,7 +43,7 @@ int main()
     if (s.GetBit(m))
     {
       count++;
-      std::cout << setw(3) << m << " ";
+      std::cout << std::setw(3) << m << " ";
       if (k++ % 10 == 0)
         std::cout << std::endl;
     }
