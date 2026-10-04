@@ -9,13 +9,18 @@
 
 TBitField::TBitField(int len)
 {
-    MemLen = len;
-    pMem = new TELEM[len];
-    BitLen = 1 + len / sizeof(TELEM);
+    BitLen = len;
+    
+    MemLen = 1+(len/sizeof(TELEM));
+    pMem = new TELEM[MemLen];
 }
 
-TBitField::TBitField(const TBitField &bf) // конструктор копирования
+TBitField::TBitField(const TBitField &bf)// конструктор копирования
+    : MemLen(bf.MemLen)
+    , BitLen(bf.BitLen)
+    , pMem(new TELEM[bf.MemLen])
 {
+    std::copy(bf.pMem, bf.pMem + MemLen, pMem);
 }
 
 TBitField::~TBitField()
