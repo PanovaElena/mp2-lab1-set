@@ -308,3 +308,20 @@ TEST(TBitField, bitfields_with_different_bits_are_not_equal)
 
   EXPECT_NE(bf1, bf2);
 }
+
+TEST(TBitField, check_cin ) {
+    const int size = 20;
+    TBitField bf1(size), bf2(size);
+    std::cout << "00110101000101000101\n";
+    std::cin >> bf1;
+    std::cout << bf1 << '\n';
+    bf2.SetBit(2);
+    bf2.SetBit(3);
+    bf2.SetBit(5);
+    bf2.SetBit(7);
+    bf2.SetBit(11);
+    bf2.SetBit(13);
+    bf2.SetBit(17);
+    bf2.SetBit(19);
+    EXPECT_EQ(bf1, bf2);
+}

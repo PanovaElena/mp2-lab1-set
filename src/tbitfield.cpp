@@ -79,7 +79,7 @@ int TBitField::GetBit(const int n) const // получить значение б
     if (n < 0 || n >= BitLen) {
         throw "Bit position is out of range";
     }
-  return GetMemMask(n % BitInElem) & pMem[GetMemIndex(n)];
+  return (bool)(GetMemMask(n % BitInElem) & pMem[GetMemIndex(n)]);
 }
 
 // битовые операции
@@ -195,14 +195,11 @@ TBitField TBitField::operator~(void) // отрицание
 
 std::istream &operator>>(std::istream &istr, TBitField &bf) // ввод
 {
-    int x = 0;
+    char x;
     for (int i = 0; i < bf.BitLen; i++) {
         istr >> x;
-        if (x) {
+        if (x == '1') {
             bf.SetBit(i);
-        }
-        else {
-            bf.ClrBit(i);
         }
     }
     return istr;

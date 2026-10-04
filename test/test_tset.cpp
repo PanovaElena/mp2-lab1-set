@@ -294,3 +294,16 @@ TEST(TSet, check_negation_operator)
 
   EXPECT_EQ(expSet, set1);
 }
+
+TEST(TSet, check_cin) {
+	const int size = 100;
+	TSet set(size);
+	TBitField bf(size);
+	std::cout << "0011010100010100010100010000010100000100010100010000010000010100000100010100000100010000010000000100\n";
+	std::cin >> set;
+	std::cout << set << '\n';
+	std::cin >> bf;
+	std::cout << bf << '\n';
+	TSet st(bf);
+	EXPECT_EQ(set, st);
+}
