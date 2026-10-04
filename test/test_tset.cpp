@@ -294,3 +294,49 @@ TEST(TSet, check_negation_operator)
 
   EXPECT_EQ(expSet, set1);
 }
+
+TEST(TSet, can_do_two_in_row_union_operations)
+{
+	const int size = 6;
+	TSet set1(size), set2(size), set3(size), setSum(size), testSet(size);
+	
+    //bf1 = {0, 2}
+    set1.InsElem(0);
+    set1.InsElem(2);
+
+    //bf2 = {1, 3}
+    set2.InsElem(1);
+    set2.InsElem(3);
+
+    //bf3 = {4, 5}
+    set3.InsElem(4);
+    set3.InsElem(5);
+
+    //testBf = {0, 1, 2, 3, 4, 5}
+    testSet.InsElem(0);
+    testSet.InsElem(1);
+    testSet.InsElem(2);
+    testSet.InsElem(3);
+    testSet.InsElem(4);
+    testSet.InsElem(5);
+
+    setSum = set1 + set2 + set3;
+
+    EXPECT_EQ(setSum, testSet);
+}
+
+TEST(TSet, can_read_input_data)
+{
+    const int size = 11;
+    TSet set(size), testSet(size);
+
+    std::cout << "Enter Set" << '\n';
+    std::cin >> set;
+
+    //bf = {1, 3, 10}
+    testSet.InsElem(1);
+    testSet.InsElem(3);
+    testSet.InsElem(10);
+
+    EXPECT_EQ(set, testSet);
+}

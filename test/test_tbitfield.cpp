@@ -255,7 +255,7 @@ TEST(TBitField, invert_plus_and_operator_on_different_size_bitfield)
   const int firstSze = 4, secondSize = 8;
   TBitField firstBf(firstSze), negFirstBf(firstSze), secondBf(secondSize), testBf(secondSize);
   // firstBf = 0001
-  firstBf.SetBit(0);
+  firstBf.SetBit(3);
   negFirstBf = ~firstBf;
   // negFirstBf = 1110
 
@@ -264,7 +264,7 @@ TEST(TBitField, invert_plus_and_operator_on_different_size_bitfield)
   secondBf.SetBit(4);
 
   // testBf = 00001000
-  testBf.SetBit(3);
+  testBf.SetBit(4);
 
   EXPECT_EQ(secondBf & negFirstBf, testBf);
 }
@@ -307,4 +307,60 @@ TEST(TBitField, bitfields_with_different_bits_are_not_equal)
   bf2.SetBit(2);
 
   EXPECT_NE(bf1, bf2);
+}
+
+TEST(TBitField, double_clr_bit_is_zero) 
+{
+    const int size = 2;
+    TBitField bf1(size), bf2(size);
+    bf1.SetBit(0);
+    bf1.ClrBit(0);
+    bf1.ClrBit(0);
+
+    EXPECT_EQ(bf1, bf2);
+}
+
+TEST(TBitField, can_do_two_in_row_or_operations)
+{
+    const int size = 6;
+    TBitField bf1(size), bf2(size), bf3(size), bfSum(size), testBf(size);
+
+    //bf1 = 101000
+    bf1.SetBit(0);
+    bf1.SetBit(2);
+
+    //bf2 = 010100
+    bf2.SetBit(1);
+    bf2.SetBit(3);
+
+    //bf3 = 000011
+    bf3.SetBit(4);
+    bf3.SetBit(5);
+
+    //testBf = 111111
+    testBf.SetBit(0);
+    testBf.SetBit(1);
+    testBf.SetBit(2);
+    testBf.SetBit(3);
+    testBf.SetBit(4);
+    testBf.SetBit(5);
+
+    bfSum = bf1 | bf2 | bf3;
+
+    EXPECT_EQ(bfSum, testBf);
+
+}
+
+TEST(TBitField, can_read_input_data)
+{
+    const int size = 4;
+    TBitField bf(size), testBf(size);
+
+    std::cout << "Enter BitField" << '\n';
+    std::cin >> bf;
+    //bf = 0101
+    testBf.SetBit(1);
+    testBf.SetBit(3);
+
+    EXPECT_EQ(bf, testBf);
 }
