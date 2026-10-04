@@ -6,6 +6,7 @@
 // Множество - реализация через битовые поля
 
 #include "tset.h"
+#include <string>
 
 TSet::TSet(int mp) : BitField(0), MaxPower(mp)
 {
@@ -145,7 +146,25 @@ TSet TSet::operator~(void) // дополнение
 
 std::istream &operator>>(std::istream &istr, TSet &s) // ввод
 {
-    istr >> s.BitField;
+    int res = 0;
+    std::string str;
+    istr >> str;
+    for (int i = 0; i < s.MaxPower; i++) {
+        std::string c = std::to_string(i);
+        int ind = str.find(c);
+        if ((ind != 0) && (ind != str.size() - c.size())) {
+            if ((ind < str.size()) && (str[ind - 1] == ',') && (str[ind + c.size()] == ','))
+                s.InsElem(i);
+        }
+        else if (ind == 0) {
+            if (str[ind + c.size()] == ',')
+                s.InsElem(i);
+        }
+        else if (ind == str.size() - c.size()) {
+            if (str[ind - 1] == ',')
+                s.InsElem(i);
+        }
+    }
     return istr;
 }
 
