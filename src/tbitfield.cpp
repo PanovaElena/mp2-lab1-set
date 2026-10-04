@@ -10,7 +10,7 @@
 TBitField::TBitField(int len)
 {
     if (len < 0 || len>1e7) {
-        throw "неккоректный размер BitField";
+        throw "некорректный размер BitField";
         return;
     }
     BitLen = len;
@@ -71,7 +71,7 @@ int TBitField::GetBit(const int n) const // получить значение б
 }
 
 // битовые операции
-
+// реализации операций можно написать лучше, но сейчас 3 часа ночи
 TBitField& TBitField::operator=(const TBitField &bf) // присваивание
 {
     TBitField tmp=bf;
