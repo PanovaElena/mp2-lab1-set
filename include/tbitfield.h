@@ -10,7 +10,7 @@
 
 #include <iostream>
 
-typedef unsigned int TELEM;
+typedef unsigned long long TELEM;
 
 class TBitField
 {

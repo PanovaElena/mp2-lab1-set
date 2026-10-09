@@ -45,7 +45,7 @@ int TBitField::GetMemIndex(const int n) const // индекс Мем для би
 TELEM TBitField::GetMemMask(const int n) const // битовая маска для бита n
 {
     if (n < 0 || n >= BitLen) throw std::out_of_range("Bit index out of range");
-    return 1u << (n % BitsInElem);
+    return 1ull << (n % BitsInElem);
 }
 
 // доступ к битам битового поля
@@ -161,7 +161,7 @@ TBitField TBitField::operator~(void) // отрицание
     if (BitLen > 0) {
         int CntLastBits = BitLen % BitsInElem;
         if (CntLastBits != 0) {
-            TELEM mask = (1u << CntLastBits) - 1;
+            TELEM mask = (1ull << CntLastBits) - 1;
             res.pMem[MemLen - 1] &= mask;
         }
     }
