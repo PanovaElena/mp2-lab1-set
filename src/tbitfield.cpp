@@ -11,6 +11,8 @@
 #include <math.h>
 #include <stddef.h>
 #include <stdexcept>
+#include <string>
+
 
 TBitField::TBitField(int len): BitLen(len)
 {
@@ -85,7 +87,7 @@ int TBitField::GetBit(const int n) const // получить значение б
     if (n < 0 || n >= BitLen) {
         throw std::out_of_range("index out of range");
     }
-    return pMem[GetMemIndex(n)] & GetMemMask(n);
+    return (pMem[GetMemIndex(n)] & GetMemMask(n)) != 0 ? 1 : 0;
 }
 
 // битовые операции

@@ -9,6 +9,7 @@
 #define __BITFIELD_H__
 
 #include <iostream>
+#include <cstdint>
 
 using TELEM = uint32_t;
 
