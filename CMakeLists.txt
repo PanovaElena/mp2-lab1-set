@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.2)
+cmake_minimum_required(VERSION 3.3)
 
 # disable googlemock
 option(BUILD_GMOCK "Builds the googlemock subproject" OFF)
