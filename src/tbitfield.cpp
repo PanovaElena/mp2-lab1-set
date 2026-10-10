@@ -183,7 +183,7 @@ TBitField TBitField::operator~(void)
     }
     int RestBits = temp.BitLen % (sizeof(TELEM) * 8);
     if (RestBits != 0) {
-        TELEM mask = (1u << RestBits) - 1;
+        TELEM mask = (TELEM(1) << RestBits) - 1;
         temp.pMem[temp.MemLen - 1] = temp.pMem[temp.MemLen - 1] & mask;
     }
     return temp;
