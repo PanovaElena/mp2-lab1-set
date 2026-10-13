@@ -10,7 +10,7 @@
 
 #include <iostream>
 
-typedef unsigned int TELEM;
+typedef unsigned int TELEM; // int для работы с битовым полем = TELEM
 
 class TBitField
 {
