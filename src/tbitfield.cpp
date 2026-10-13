@@ -152,18 +152,16 @@ TBitField TBitField::operator&(const TBitField &bf) // операция "и"
     return result;
 }
 
-TBitField TBitField::operator~(void) // отрицание
+TBitField TBitField::operator~(void)
 {
     TBitField result(BitLen);
-    for (int i = 0; i < MemLen; i++)
+
+    // инвертируем абсолютно все ячейки памяти
+    for (int i = 0; i < MemLen; i++)    
         result.pMem[i] = ~pMem[i];
 
-    /*
-    for (int i = BitLen; i < MemLen * sizeof(TELEM) * 8; i++) //обработка несиспользуемых битов BitLen = 35, MemLen = 64; 
-        result.ClrBit(i);
-    */
-
-    int lastBitPos = BitLen % (sizeof(TELEM) * 8); // cоздаем маску, оставляющую только нужные биты
+    // обнуляем неиспользуемые биты в последнем элементе
+    int lastBitPos = BitLen % (sizeof(TELEM) * 8);
     if (lastBitPos != 0)
     {
         TELEM mask = (1U << lastBitPos) - 1;
@@ -171,7 +169,7 @@ TBitField TBitField::operator~(void) // отрицание
     }
 
     return result;
-}   
+}
 
 // ввод/вывод
 
