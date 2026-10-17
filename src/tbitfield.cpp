@@ -52,7 +52,7 @@ TELEM TBitField::GetMemMask(const int n) const // битовая маска дл
         throw "Index out of range";
     }
     int pos = n % (sizeof(TELEM) * 8); // n % 32
-    return 1 << pos; // 000..001 двигает 1 на pos влево
+    return (TELEM)1 << pos; // 000..001 двигает 1 на pos влево, добавил (TELEM) перед единицей
 }
 
 // доступ к битам битового поля
@@ -197,7 +197,7 @@ TBitField TBitField::operator~(void) // отрицание
     }
     int lastBits = BitLen % (sizeof(TELEM) * 8);
     if (lastBits != 0) {
-        TELEM mask = (1 << lastBits) - 1;
+        TELEM mask = ((TELEM)1 << lastBits) - 1; // добавил (TELEM) перед единицей
         temp.pMem[MemLen - 1] = temp.pMem[MemLen - 1] & mask;
     }
     return temp;
