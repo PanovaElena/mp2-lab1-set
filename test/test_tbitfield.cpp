@@ -1,5 +1,6 @@
 #include "gtest.h"
 #include "tbitfield.h"
+#include <sstream>
 
 TEST(TBitField, can_create_bitfield_with_positive_length)
 {
@@ -309,12 +310,15 @@ TEST(TBitField, bitfields_with_different_bits_are_not_equal)
   EXPECT_NE(bf1, bf2);
 }
 
-TEST(TBitField, check_cin ) {
+TEST(TBitField, check_cin) {
     const int size = 20;
     TBitField bf1(size), bf2(size);
-    std::cout << "00110101000101000101\n";
-    std::cin >> bf1;
-    std::cout << bf1 << '\n';
+    //std::cout << "00110101000101000101\n";
+    std::stringstream sstr;
+    sstr << "00110101000101000101\n";
+    sstr >> bf1;
+    //std::cin >> bf1;
+    //std::cout << bf1 << '\n';
     bf2.SetBit(2);
     bf2.SetBit(3);
     bf2.SetBit(5);
@@ -324,4 +328,20 @@ TEST(TBitField, check_cin ) {
     bf2.SetBit(17);
     bf2.SetBit(19);
     EXPECT_EQ(bf1, bf2);
+}
+
+TEST(TBitField, can_do_AND_correctly) {
+    const int size1 = 70, size2 = 35;
+    TBitField bf1(size1), bf2(size2), bf3(size1);
+    for (int i = 0; i < size1; i += 2)
+        bf1.SetBit(i);
+    for (int i = 1; i < size2; i += 2)
+        bf2.SetBit(i);
+
+    TBitField res1 = bf1 & bf2;
+    TBitField res2 = bf2 & bf1;
+    std::cout << res1 << '\n';
+    std::cout << res2 << '\n';
+    EXPECT_EQ(bf3, res1);
+    EXPECT_EQ(bf3, res2);
 }

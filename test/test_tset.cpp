@@ -1,5 +1,6 @@
 #include "gtest.h"
 #include "tset.h"
+#include <sstream>
 
 TEST(TSet, can_get_max_power_set)
 {
@@ -299,11 +300,17 @@ TEST(TSet, check_cin) {
 	const int size = 100;
 	TSet set(size);
 	TBitField bf(size);
-	std::cout << "0011010100010100010100010000010100000100010100010000010000010100000100010100000100010000010000000100\n";
-	std::cin >> set;
-	std::cout << set << '\n';
-	std::cin >> bf;
-	std::cout << bf << '\n';
+	//std::cout << "0011010100010100010100010000010100000100010100010000010000010100000100010100000100010000010000000100\n";
+	std::stringstream sstr;
+	sstr << "0011010100010100010100010000010100000100010100010000010000010100000100010100000100010000010000000100\n";
+	sstr >> set;
+	//std::cin >> set;
+	//std::cout << set << '\n';
+	std::stringstream sstr1;
+	sstr1 << "0011010100010100010100010000010100000100010100010000010000010100000100010100000100010000010000000100\n";
+	sstr1 >> bf;
+	//std::cin >> bf;
+	//std::cout << bf << '\n';
 	TSet st(bf);
 	EXPECT_EQ(set, st);
 }
