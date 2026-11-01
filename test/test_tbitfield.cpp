@@ -185,6 +185,7 @@ TEST(TBitField, or_operator_applied_to_bitfields_of_non_equal_size)
   expBf.SetBit(2);
   expBf.SetBit(3);
 
+  EXPECT_EQ(expBf.GetLength(), (bf1 | bf2).GetLength());
   EXPECT_EQ(expBf, bf1 | bf2);
 }
 
