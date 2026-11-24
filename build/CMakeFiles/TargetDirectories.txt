@@ -1,0 +1,15 @@
+C:/Users/User/Documents/mp2-lab1-set/build/CMakeFiles/INSTALL.dir
+C:/Users/User/Documents/mp2-lab1-set/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/User/Documents/mp2-lab1-set/build/CMakeFiles/ZERO_CHECK.dir
+C:/Users/User/Documents/mp2-lab1-set/build/gtest/googletest-1.18.0/CMakeFiles/INSTALL.dir
+C:/Users/User/Documents/mp2-lab1-set/build/gtest/googletest-1.18.0/CMakeFiles/ALL_BUILD.dir
+C:/Users/User/Documents/mp2-lab1-set/build/gtest/googletest-1.18.0/googletest/CMakeFiles/gtest.dir
+C:/Users/User/Documents/mp2-lab1-set/build/gtest/googletest-1.18.0/googletest/CMakeFiles/gtest_main.dir
+C:/Users/User/Documents/mp2-lab1-set/build/gtest/googletest-1.18.0/googletest/CMakeFiles/INSTALL.dir
+C:/Users/User/Documents/mp2-lab1-set/build/gtest/googletest-1.18.0/googletest/CMakeFiles/ALL_BUILD.dir
+C:/Users/User/Documents/mp2-lab1-set/build/src/CMakeFiles/set.dir
+C:/Users/User/Documents/mp2-lab1-set/build/src/CMakeFiles/INSTALL.dir
+C:/Users/User/Documents/mp2-lab1-set/build/samples/CMakeFiles/sample_prime_numbers.dir
+C:/Users/User/Documents/mp2-lab1-set/build/samples/CMakeFiles/INSTALL.dir
+C:/Users/User/Documents/mp2-lab1-set/build/test/CMakeFiles/test_set.dir
+C:/Users/User/Documents/mp2-lab1-set/build/test/CMakeFiles/INSTALL.dir

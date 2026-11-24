@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Solution>
+	<Configurations>
+		<BuildType Name="Debug"/>
+		<BuildType Name="Release"/>
+		<BuildType Name="MinSizeRel"/>
+		<BuildType Name="RelWithDebInfo"/>
+		<Platform Name="x64"/>
+	</Configurations>
+	<Project Path="gtest/googletest-1.18.0/googletest/gtest.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="e9763f5c-1e38-3df8-9049-6b3ac5099f67">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+	</Project>
+	<Project Path="gtest/googletest-1.18.0/googletest/gtest_main.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="ca48d528-4450-3542-a35f-3e1d797be2d4">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="gtest/googletest-1.18.0/googletest/gtest.vcxproj"/>
+	</Project>
+	<Project Path="samples/sample_prime_numbers.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="923bb20f-8390-3350-8c25-2603c1e98769">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="src/set.vcxproj"/>
+	</Project>
+	<Project Path="src/set.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="7c949184-2e7a-3920-87ea-9e25c0270994">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+	</Project>
+	<Project Path="test/test_set.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="1e5fed82-b209-3ecc-aebb-fd9c0ba2cc83">
+		<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+		<BuildDependency Project="gtest/googletest-1.18.0/googletest/gtest.vcxproj"/>
+		<BuildDependency Project="src/set.vcxproj"/>
+	</Project>
+	<Folder Name="/CMakePredefinedTargets/">
+		<Project Path="ALL_BUILD.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="d61c4ad4-6b14-39da-bb00-1ff0a972f5b2" DefaultStartup="true">
+			<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+			<BuildDependency Project="gtest/googletest-1.18.0/googletest/gtest.vcxproj"/>
+			<BuildDependency Project="gtest/googletest-1.18.0/googletest/gtest_main.vcxproj"/>
+			<BuildDependency Project="samples/sample_prime_numbers.vcxproj"/>
+			<BuildDependency Project="src/set.vcxproj"/>
+			<BuildDependency Project="test/test_set.vcxproj"/>
+		</Project>
+		<Project Path="INSTALL.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="f6b58a2e-aacd-39bd-b816-c9a3c01428c8">
+			<BuildDependency Project="ALL_BUILD.vcxproj"/>
+			<BuildDependency Project="ZERO_CHECK.vcxproj"/>
+			<Build Solution="Debug|*" Project="false"/>
+			<Build Solution="Release|*" Project="false"/>
+			<Build Solution="MinSizeRel|*" Project="false"/>
+			<Build Solution="RelWithDebInfo|*" Project="false"/>
+		</Project>
+		<Project Path="ZERO_CHECK.vcxproj" Type="8bc9ceb8-8b4a-11d0-8d11-00a0c91bc942" Id="6134b382-04b1-3f43-9945-3f1b667598c2"/>
+	</Folder>
+</Solution>
